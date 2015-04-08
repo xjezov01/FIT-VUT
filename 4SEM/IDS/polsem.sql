@@ -50,6 +50,8 @@ INSERT INTO Zapsal VALUES('003', '001','2015');
 INSERT INTO Zapsal VALUES('003', '004','2015');
 
 -- Vytvorte DB pohled ukazujici studenty, kteri maji zapsany mene nez ctyri predmety.
+-- (ale maju aspoj jeden)
+CREATE VIEW studenty AS
 SELECT S.login, S.meno
 FROM Student S, Zapsal Z
 WHERE S.login = Z.login
