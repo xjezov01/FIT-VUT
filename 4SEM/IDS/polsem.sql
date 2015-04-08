@@ -37,15 +37,15 @@ INSERT INTO Student VALUES('002', 'edo');
 INSERT INTO Student VALUES('003', 'marek');
 INSERT INTO Student VALUES('004', 'ja');
 
---STUDENT1
+--STUDENT1 (len predmety s cviceniami)
 INSERT INTO Zapsal VALUES('001', '001','2015');
 INSERT INTO Zapsal VALUES('001', '002','2015');
 
---STUDENT2
+--STUDENT2 (len predmety bez cviceni)
 INSERT INTO Zapsal VALUES('002', '003','2015');
 INSERT INTO Zapsal VALUES('002', '004','2015');
 
---STUDENT3
+--STUDENT3 (aj cvicenia aj bez)
 INSERT INTO Zapsal VALUES('003', '001','2015');
 INSERT INTO Zapsal VALUES('003', '004','2015');
 
@@ -57,7 +57,7 @@ GROUP BY S.login, S.meno
 HAVING COUNT(Z.login) < 4;
 
 -- "Kteri studenti (login, jmeno) maji letos zapsany pouze predmety, kde neni cviceni?"
-SELECT DISTINCT S.meno, Z.zkr FROM Student S, Zapsal Z WHERE S.login = Z.login AND NOT S.login IN
+SELECT DISTINCT S.meno FROM Student S, Zapsal Z WHERE S.login = Z.login AND Z.rok = 2015 AND NOT S.login IN
 (SELECT DISTINCT login FROM Zapsal WHERE zkr IN
 (SELECT zkr FROM Predmet WHERE cviceni = 1));
 
