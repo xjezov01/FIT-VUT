@@ -57,7 +57,7 @@ INSERT INTO Resi VALUES('004', '004');
 SELECT nazev FROM Projekt NATURAL JOIN Resi NATURAL JOIN Student
 WHERE rocnik = 3 group by nazev
 HAVING count(login) = (SELECT COUNT(DISTINCT login) FROM Student WHERE rocnik = 3 );
--- ten koniec spocita vsetkych studentov 3 rocnika co robili nejaky projekt
+-- ten koniec spocita vsetkych studentov 3 rocnika
 -- count(login) suvisi stym hore - napocita kolko studentov robilo dany projekt
 -- no a ked sa rovnaju tak to su presne tie projekty co robili vsetci
 
