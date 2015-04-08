@@ -33,8 +33,8 @@ INSERT INTO Projekt VALUES('004', 'PROJEKT4');
 
 INSERT INTO Student VALUES('001', 'filip', '3');
 INSERT INTO Student VALUES('002', 'edo', '3');
-INSERT INTO Student VALUES('003', 'marek', '2');
-INSERT INTO Student VALUES('004', 'ja', '3');
+INSERT INTO Student VALUES('003', 'marek', '3');
+INSERT INTO Student VALUES('004', 'ja', '1');
 
 --STUDENT1             ( stud,  Proj  )
 INSERT INTO Resi VALUES('001', '001');
@@ -45,14 +45,18 @@ INSERT INTO Resi VALUES('002', '001');
 INSERT INTO Resi VALUES('002', '003');
 
 --STUDENT3
-INSERT INTO Resi VALUES('003', '002');
-INSERT INTO Resi VALUES('003', '003');
+INSERT INTO Resi VALUES('003', '001');
+INSERT INTO Resi VALUES('003', '004');
+
+--STUDENT4
+INSERT INTO Resi VALUES('004', '001');
+INSERT INTO Resi VALUES('004', '004');
 
 
 -- projekty, ktore robili vsetci 3tieho rocniku
 SELECT nazev FROM Projekt NATURAL JOIN Resi NATURAL JOIN Student
 WHERE rocnik = 3 group by nazev
-HAVING count(login) = (SELECT COUNT(DISTINCT login) FROM Resi NATURAL JOIN Student WHERE rocnik = 3 );
+HAVING count(login) = (SELECT COUNT(DISTINCT login) FROM Student WHERE rocnik = 3 );
 -- ten koniec spocita vsetkych studentov 3 rocnika co robili nejaky projekt
 -- count(login) suvisi stym hore - napocita kolko studentov robilo dany projekt
 -- no a ked sa rovnaju tak to su presne tie projekty co robili vsetci
