@@ -1,42 +1,43 @@
 
 /* c016.c: **********************************************************}
-{* Téma:  Tabulka s Rozptılenımi Polo¾kami
-**                      První implementace: Petr Pøikryl, prosinec 1994
+{* TÃ©ma:  Tabulka s RozptÃ½lenÃ½mi PoloÅ¾kami
+**                      PrvnÃ­ implementace: Petr PÅ™ikryl, prosinec 1994
 **                      Do jazyka C prepsal a upravil: Vaclav Topinka, 2005
-**                      Úpravy: Karel Masaøík, øíjen 2014
-**                      Úpravy: Radek Hranickı, øíjen 2014
+**                      Ãšpravy: Karel MasaÅ™Ã­k, Å™Ã­jen 2014
+**                      Ãšpravy: Radek HranickÃ½, Å™Ã­jen 2014
+**                      Ãšpravy: Filip JeÅ¾ovica, xjezov01, 2014
 **
-** Vytvoøete abstraktní datovı typ
-** TRP (Tabulka s Rozptılenımi Polo¾kami = Hash table)
-** s explicitnì øetìzenımi synonymy. Tabulka je implementována polem
-** lineárních seznamù synonym.
+** VytvoÅ™ete abstraktnÃ­ datovÃ½ typ
+** TRP (Tabulka s RozptÃ½lenÃ½mi PoloÅ¾kami = Hash table)
+** s explicitnÄ› Å™etÄ›zenÃ½mi synonymy. Tabulka je implementovÃ¡na polem
+** lineÃ¡rnÃ­ch seznamÅ¯ synonym.
 **
-** Implementujte následující procedury a funkce.
+** Implementujte nÃ¡sledujÃ­cÃ­ procedury a funkce.
 **
-**  HTInit ....... inicializuje tabulku pøed prvním pou¾itím
-**  HTInsert ..... vlo¾ení prvku
-**  HTSearch ..... zji¹tìní pøítomnosti prvku v tabulce
-**  HTDelete ..... zru¹ení prvku
-**  HTRead ....... pøeètení hodnoty prvku
-**  HTClearAll ... zru¹ení obsahu celé tabulky (inicializace tabulky
-**                 poté, co ji¾ byla pou¾ita)
+**  HTInit ....... inicializuje tabulku pÅ™ed prvnÃ­m pouÅ¾itÃ­m
+**  HTInsert ..... vloÅ¾enÃ­ prvku
+**  HTSearch ..... zjiÅ¡tÄ›nÃ­ pÅ™Ã­tomnosti prvku v tabulce
+**  HTDelete ..... zruÅ¡enÃ­ prvku
+**  HTRead ....... pÅ™eÄtenÃ­ hodnoty prvku
+**  HTClearAll ... zruÅ¡enÃ­ obsahu celÃ© tabulky (inicializace tabulky
+**                 potÃ©, co jiÅ¾ byla pouÅ¾ita)
 **
-** Definici typù naleznete v souboru c016.h.
+** Definici typÅ¯ naleznete v souboru c016.h.
 **
-** Tabulka je reprezentována datovou strukturou typu tHTable,
-** která se skládá z ukazatelù na polo¾ky, je¾ obsahují slo¾ky
-** klíèe 'key', obsahu 'data' (pro jednoduchost typu float), a
-** ukazatele na dal¹í synonymum 'ptrnext'. Pøi implementaci funkcí
-** uva¾ujte maximální rozmìr pole HTSIZE.
+** Tabulka je reprezentovÃ¡na datovou strukturou typu tHTable,
+** kterÃ¡ se sklÃ¡dÃ¡ z ukazatelÅ¯ na poloÅ¾ky, jeÅ¾ obsahujÃ­ sloÅ¾ky
+** klÃ­Äe 'key', obsahu 'data' (pro jednoduchost typu float), a
+** ukazatele na dalÅ¡Ã­ synonymum 'ptrnext'. PÅ™i implementaci funkcÃ­
+** uvaÅ¾ujte maximÃ¡lnÃ­ rozmÄ›r pole HTSIZE.
 **
-** U v¹ech procedur vyu¾ívejte rozptylovou funkci hashCode.  Pov¹imnìte si
-** zpùsobu pøedávání parametrù a zamyslete se nad tím, zda je mo¾né parametry
-** pøedávat jinım zpùsobem (hodnotou/odkazem) a v pøípadì, ¾e jsou obì
-** mo¾nosti funkènì pøípustné, jaké jsou vıhody èi nevıhody toho èi onoho
-** zpùsobu.
+** U vÅ¡ech procedur vyuÅ¾Ã­vejte rozptylovou funkci hashCode.  PovÅ¡imnÄ›te si
+** zpÅ¯sobu pÅ™edÃ¡vÃ¡nÃ­ parametrÅ¯ a zamyslete se nad tÃ­m, zda je moÅ¾nÃ© parametry
+** pÅ™edÃ¡vat jinÃ½m zpÅ¯sobem (hodnotou/odkazem) a v pÅ™Ã­padÄ›, Å¾e jsou obÄ›
+** moÅ¾nosti funkÄnÄ› pÅ™Ã­pustnÃ©, jakÃ© jsou vÃ½hody Äi nevÃ½hody toho Äi onoho
+** zpÅ¯sobu.
 **
-** V pøíkladech jsou pou¾ity polo¾ky, kde klíèem je øetìzec, ke kterému
-** je pøidán obsah - reálné èíslo.
+** V pÅ™Ã­kladech jsou pouÅ¾ity poloÅ¾ky, kde klÃ­Äem je Å™etÄ›zec, ke kterÃ©mu
+** je pÅ™idÃ¡n obsah - reÃ¡lnÃ© ÄÃ­slo.
 */
 
 #include "c016.h"
@@ -45,11 +46,11 @@ int HTSIZE = MAX_HTSIZE;
 int solved;
 
 /*          -------
-** Rozptylovací funkce - jejím úkolem je zpracovat zadanı klíè a pøidìlit
-** mu index v rozmezí 0..HTSize-1.  V ideálním pøípadì by mìlo dojít
-** k rovnomìrnému rozptılení tìchto klíèù po celé tabulce.  V rámci
-** pokusù se mù¾ete zamyslet nad kvalitou této funkce.  (Funkce nebyla
-** volena s ohledem na maximální kvalitu vısledku). }
+** RozptylovacÃ­ funkce - jejÃ­m Ãºkolem je zpracovat zadanÃ½ klÃ­Ä a pÅ™idÄ›lit
+** mu index v rozmezÃ­ 0..HTSize-1.  V ideÃ¡lnÃ­m pÅ™Ã­padÄ› by mÄ›lo dojÃ­t
+** k rovnomÄ›rnÃ©mu rozptÃ½lenÃ­ tÄ›chto klÃ­ÄÅ¯ po celÃ© tabulce.  V rÃ¡mci
+** pokusÅ¯ se mÅ¯Å¾ete zamyslet nad kvalitou tÃ©to funkce.  (Funkce nebyla
+** volena s ohledem na maximÃ¡lnÃ­ kvalitu vÃ½sledku). }
 */
 
 int hashCode ( tKey key ) {
@@ -61,8 +62,8 @@ int hashCode ( tKey key ) {
 }
 
 /*
-** Inicializace tabulky s explicitnì zøetìzenımi synonymy.  Tato procedura
-** se volá pouze pøed prvním pou¾itím tabulky.
+** Inicializace tabulky s explicitnÄ› zÅ™etÄ›zenÃ½mi synonymy.  Tato procedura
+** se volÃ¡ pouze pÅ™ed prvnÃ­m pouÅ¾itÃ­m tabulky.
 */
 
 void htInit ( tHTable* ptrht ) {
@@ -80,10 +81,10 @@ void htInit ( tHTable* ptrht ) {
 	}
 }
 
-/* TRP s explicitnì zøetìzenımi synonymy.
-** Vyhledání prvku v TRP ptrht podle zadaného klíèe key.  Pokud je
-** danı prvek nalezen, vrací se ukazatel na danı prvek. Pokud prvek nalezen není, 
-** vrací se hodnota NULL.
+/* TRP s explicitnÄ› zÅ™etÄ›zenÃ½mi synonymy.
+** VyhledÃ¡nÃ­ prvku v TRP ptrht podle zadanÃ©ho klÃ­Äe key.  Pokud je
+** danÃ½ prvek nalezen, vracÃ­ se ukazatel na danÃ½ prvek. Pokud prvek nalezen nenÃ­, 
+** vracÃ­ se hodnota NULL.
 **
 */
 
@@ -104,15 +105,15 @@ tHTItem* htSearch ( tHTable* ptrht, tKey key ) {
 }
 
 /* 
-** TRP s explicitnì zøetìzenımi synonymy.
-** Tato procedura vkládá do tabulky ptrht polo¾ku s klíèem key a s daty
-** data.  Proto¾e jde o vyhledávací tabulku, nemù¾e bıt prvek se stejnım
-** klíèem ulo¾en v tabulce více ne¾ jedenkrát.  Pokud se vkládá prvek,
-** jeho¾ klíè se ji¾ v tabulce nachází, aktualizujte jeho datovou èást.
+** TRP s explicitnÄ› zÅ™etÄ›zenÃ½mi synonymy.
+** Tato procedura vklÃ¡dÃ¡ do tabulky ptrht poloÅ¾ku s klÃ­Äem key a s daty
+** data.  ProtoÅ¾e jde o vyhledÃ¡vacÃ­ tabulku, nemÅ¯Å¾e bÃ½t prvek se stejnÃ½m
+** klÃ­Äem uloÅ¾en v tabulce vÃ­ce neÅ¾ jedenkrÃ¡t.  Pokud se vklÃ¡dÃ¡ prvek,
+** jehoÅ¾ klÃ­Ä se jiÅ¾ v tabulce nachÃ¡zÃ­, aktualizujte jeho datovou ÄÃ¡st.
 **
-** Vyu¾ijte døíve vytvoøenou funkci htSearch.  Pøi vkládání nového
-** prvku do seznamu synonym pou¾ijte co nejefektivnìj¹í zpùsob,
-** tedy proveïte.vlo¾ení prvku na zaèátek seznamu.
+** VyuÅ¾ijte dÅ™Ã­ve vytvoÅ™enou funkci htSearch.  PÅ™i vklÃ¡dÃ¡nÃ­ novÃ©ho
+** prvku do seznamu synonym pouÅ¾ijte co nejefektivnÄ›jÅ¡Ã­ zpÅ¯sob,
+** tedy proveÄte.vloÅ¾enÃ­ prvku na zaÄÃ¡tek seznamu.
 **/
 
 void htInsert ( tHTable* ptrht, tKey key, tData data ) {
@@ -154,12 +155,12 @@ void htInsert ( tHTable* ptrht, tKey key, tData data ) {
 }
 
 /*
-** TRP s explicitnì zøetìzenımi synonymy.
-** Tato funkce zji¹»uje hodnotu datové èásti polo¾ky zadané klíèem.
-** Pokud je polo¾ka nalezena, vrací funkce ukazatel na polo¾ku
-** Pokud polo¾ka nalezena nebyla, vrací se funkèní hodnota NULL
+** TRP s explicitnÄ› zÅ™etÄ›zenÃ½mi synonymy.
+** Tato funkce zjiÅ¡Å¥uje hodnotu datovÃ© ÄÃ¡sti poloÅ¾ky zadanÃ© klÃ­Äem.
+** Pokud je poloÅ¾ka nalezena, vracÃ­ funkce ukazatel na poloÅ¾ku
+** Pokud poloÅ¾ka nalezena nebyla, vracÃ­ se funkÄnÃ­ hodnota NULL
 **
-** Vyu¾ijte døíve vytvoøenou funkci HTSearch.
+** VyuÅ¾ijte dÅ™Ã­ve vytvoÅ™enou funkci HTSearch.
 */
 
 tData* htRead ( tHTable* ptrht, tKey key ) {
@@ -174,13 +175,13 @@ tData* htRead ( tHTable* ptrht, tKey key ) {
 }
 
 /*
-** TRP s explicitnì zøetìzenımi synonymy.
-** Tato procedura vyjme polo¾ku s klíèem key z tabulky
-** ptrht.  Uvolnìnou polo¾ku korektnì zru¹te.  Pokud polo¾ka s uvedenım
-** klíèem neexistuje, dìlejte, jako kdyby se nic nestalo (tj. nedìlejte
+** TRP s explicitnÄ› zÅ™etÄ›zenÃ½mi synonymy.
+** Tato procedura vyjme poloÅ¾ku s klÃ­Äem key z tabulky
+** ptrht.  UvolnÄ›nou poloÅ¾ku korektnÄ› zruÅ¡te.  Pokud poloÅ¾ka s uvedenÃ½m
+** klÃ­Äem neexistuje, dÄ›lejte, jako kdyby se nic nestalo (tj. nedÄ›lejte
 ** nic).
 **
-** V tomto pøípadì NEVYU®ÍVEJTE døíve vytvoøenou funkci HTSearch.
+** V tomto pÅ™Ã­padÄ› NEVYUÅ½ÃVEJTE dÅ™Ã­ve vytvoÅ™enou funkci HTSearch.
 */
 
 void htDelete ( tHTable* ptrht, tKey key ) {
@@ -226,9 +227,9 @@ void htDelete ( tHTable* ptrht, tKey key ) {
 		free(prvok);
 }
 
-/* TRP s explicitnì zøetìzenımi synonymy.
-** Tato procedura zru¹í v¹echny polo¾ky tabulky, korektnì uvolní prostor,
-** kterı tyto polo¾ky zabíraly, a uvede tabulku do poèáteèního stavu.
+/* TRP s explicitnÄ› zÅ™etÄ›zenÃ½mi synonymy.
+** Tato procedura zruÅ¡Ã­ vÅ¡echny poloÅ¾ky tabulky, korektnÄ› uvolnÃ­ prostor,
+** kterÃ½ tyto poloÅ¾ky zabÃ­raly, a uvede tabulku do poÄÃ¡teÄnÃ­ho stavu.
 */
 
 void htClearAll ( tHTable* ptrht ) {
