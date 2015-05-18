@@ -1,5 +1,5 @@
 # 2 Semester
 
-## INC - Návrh číslicových systémů
-## IOS - Operační systémy
-## ITY - Typografie a publikování
+## INC - Návrh číslicových systémů (VHDL)
+## IOS - Operační systémy (Bash, C-multiprocessing)
+## ITY - Typografie a publikování (Latex)
