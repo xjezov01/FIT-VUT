@@ -2,4 +2,4 @@
 
 ##ITO - Teorie obvodů
 ##IUS - Úvod do softwarového inženýrství
-##IZP - Základy programování
+##IZP - Základy programování (C)
