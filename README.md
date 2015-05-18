@@ -1,1 +1,1 @@
-# FIT-VUT
+# Projekty FIT VUT
