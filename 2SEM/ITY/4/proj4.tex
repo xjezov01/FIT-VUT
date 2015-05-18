@@ -1,0 +1,64 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[left=2cm,text={17cm, 24cm},top=3cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage{times}
+
+\bibliographystyle{czplain}
+
+\newcommand{\myuv}[1]{\quotedblbase #1\textquotedblleft}
+%\hbadness 10000
+
+\begin{document}
+\begin{titlepage}
+\begin{center}
+{\Huge\textsc{Vysoké učení technické v~Brně}}\\
+\bigskip
+{\huge\textsc{Fakulta informačních technologií}}\\
+\vspace{\stretch{0.382}}
+{\LARGE Typografie a~publikování\,--\,4.\,projekt}\\
+\medskip
+{\Huge Bibiografické citácie}\\
+\vspace{\stretch{0.618}}
+\end{center}
+{\Large \today \hfill Filip Ježovica}
+\end{titlepage}
+
+\section{Úvod}
+Každý potrebuje čas od času vytvoriť nejaký dokument.
+Existuje mnoho počítačových nástrojov pre spracovanie textu. Väčšinou sú to distribúcie s~grafickým rozhraním, kde si môžeme \myuv{všetko naklikať}. Naozaj všetko?
+
+\section{Začiatky s~\LaTeX om}
+I~ja som používal rôzne distribúcie. Nie vždy som nadstavil všetko čo som potreboval. Pri hľadaní alternatívy sa mi ponúkol systém \LaTeX.
+
+Prvý pohľad na tento systém môže bežného používateľa vystrašiť, pretože sa nejedná o~zaužívané grafické rozhranie s~množstvom tlačítok. \TeX \ pripomína programovací jazyk, pretože dokument formátujeme pomocou príkazov vkladaných priamo do textu.\cite{CSTUG}
+Dokumenty vytvorené systémom \LaTeX \ sú na prvý pohľad úhľadnejšie a~všetko je tam kde má byť.
+
+Dobrým pomocníkom pri začínaní so systémom \LaTeX \ môže byť kniha \myuv{Typografický systém Tex} \cite{Olsak:SystemTex}. Pre nadšencov zahraničnej literatúry odporúčam  svetovo preslávený titul \myuv{A~guide to \LaTeX} \cite{Helmut:LatexGuide}.
+
+\section{\LaTeX \ a~český jazyk}
+Pravidlá pre vsádzanie českého a~slovenského textu sú rozdielne ako tie anglické.
+Tomu je potrebné prispôsobiť i~\TeX.
+Dávnejšie sa používal balík \verb|\usepackage{czech}| spolu s~počešteným prekladačom.
+Teraz sa používa balík \verb|\usepackage[czech]{babel}| , pri ktorom netreba používať prekladač cslatex a~je možné prekladať priamo prekladačom latex.\cite{CZLATEX}
+
+Niekedy potrebujeme používať nezlomiteľné medzery namiesto obyčajných práve pre správne vsádzanie českého a~slovenského textu.
+Slúži na to príkaz vlna \verb|~|. Pre uľahčenie vznikol program \texttt{VLNA}\,--\,autor Peter Olšák. Tento program automaticky doplní všetky potrebné vlnky.\cite{VLNA}
+
+\section{Žijeme \LaTeX om}
+\LaTeX \ sa stal obľúbeným a~je okolo neho početná komunita ľudí. Usporiadajú sa rôzne stretnutia, konferencie. Zhrnutie týchto konferencií môžeme nájsť v~zborníkoch. \cite{ZBORNIK}
+
+Všetky nadobudnuté znalosti tohto systému využijeme i~v~budúcnosti. Veľa študentov používa tento systém práve pri tvorbe svojej bakalárskej práci \cite{Hamrsky:bak:RozoznavaniePisma} alebo diplomovej práci \cite{Cerny:diplom:Latex-MSPP}.
+
+\section{Písmo budúcnosti?}
+Na desiatkach škôl sa deti prvých a~druhých ročníkov zúčastňujú skúšobného overovania písma \texttt{Comenia Script}. Toto písmo sa podobá tiskovému písmu. Po čase sa zistilo, že žiaci sa toto písmo učia bez problémov, píšu plynulo a~čitateľne, dokonca píšu s~radosťou.
+Uvidíme ako sa nasadenie písma bude vyvíjať ďalej.\cite{PISMO}
+
+\section{Nie je farba ako farba}
+Vyladenie farieb na monitoroch a~ďalších perifériách je veľmi dôležité. Dnes sú dostupné sondy na kalibráciu periférii i~s~pokročilým software. Celou kalibráciou nás prevedie sprievodca a~nasleduje uloženie ICC profilu. Takáto kalibrácia patrí k~základom úspešnej práce grafika, či fotoateliéru.\cite{FONT}
+
+
+\newpage
+\bibliography{lit}
+\end{document}
